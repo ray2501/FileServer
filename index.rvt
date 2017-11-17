@@ -1,0 +1,60 @@
+<?
+    set dir files
+    if {[catch {set filelist [glob -join -dir $dir *]}]==0} {
+        set filelist [lsort $filelist]
+    } else {
+        set filelist [list]
+    }
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>File Server</title>
+	<link rel="stylesheet" href="/css/pure-min.css"></head>
+<body>
+<br>
+<h1 align="center">File Server</h1>
+<br>
+<div class="pure-g">
+    <div class="pure-u-1-5"></div>
+    <div class="pure-u-1-5"></div>
+	<div class="pure-u-1-5"></div>
+    <div class="pure-u-1-5">
+    <button class="pure-button pure-button-primary" onclick="javascript:location.href='/upload.html'">Upload</button>
+    </div>
+    <div class="pure-u-1-5"></div>
+</div>
+<br>
+<hr>
+<div class="pure-g">
+<div class="pure-u-1-24"></div>
+<div class="pure-u-1-24"></div>
+<div class="pure-u-20-24">
+<style scoped>
+.button-warning {
+	background: rgb(223, 117, 20); /* this is an orange */
+}
+</style>
+<table class="pure-table pure-table-horizontal" width="90%">
+    <thead>
+        <tr>
+            <th width="70%">File Name</th>
+            <th width="30%">File Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <? foreach file $filelist { ?>
+        <tr>
+            <td><a href="<?= $file ?>"><?= $file ?></a></td>
+            <td><?= [clock format [file mtime $file] -format "%Y-%m-%d %H:%M:%S"] ?></td>
+        </tr>
+        <? } ?>
+    </tbody>
+</table></div>
+<div class="pure-u-1-24"></div>
+<div class="pure-u-1-24"></div>
+</div>
+</body>
+</html>

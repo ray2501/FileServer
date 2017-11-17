@@ -1,0 +1,19 @@
+<?
+::rivet::load_response response
+
+if {[info exists response(filedata)]==1} {
+    set filedata $response(filedata)
+}
+
+if {[info exists response(filedata)]==0 || [info exists filedata]==0} {
+    ::rivet::redirect "/error.rvt"
+}
+
+if {[string length $filedata] < 1} {
+    ::rivet::redirect "/error.rvt"
+}
+
+set savepath "/srv/www/htdocs/files/$filedata"
+::rivet::upload save filedata $savepath
+::rivet::redirect "/index.rvt"
+?>
